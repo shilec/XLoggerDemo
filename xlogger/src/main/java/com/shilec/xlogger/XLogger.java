@@ -27,6 +27,9 @@ public class XLogger implements IXLogger {
     static IXLogger sInstance;
 
     public synchronized static IXLogger getDefault() {
+        if(sConfig == null) {
+            throw new IllegalStateException("you must init xlogger first!");
+        }
         if (sInstance == null) {
             sInstance = new XLogger();
         }
@@ -40,6 +43,9 @@ public class XLogger implements IXLogger {
     }
 
     public static void init(Config config) {
+        if(sConfig != null) {
+            return;
+        }
         sConfig = config;
     }
 

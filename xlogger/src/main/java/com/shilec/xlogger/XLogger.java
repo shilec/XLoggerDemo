@@ -43,10 +43,13 @@ public class XLogger implements IXLogger {
     }
 
     public static void init(Config config) {
-        if(sConfig != null) {
-            return;
+        synchronized (XLogger.class) {
+            if (config == null) {
+                return;
+            }
+            sConfig = config;
+            getDefault();
         }
-        sConfig = config;
     }
 
     private void log(int level, boolean isNeedSave,String tag,
